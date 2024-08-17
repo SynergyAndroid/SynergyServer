@@ -3,23 +3,17 @@ package com.example.sbb;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.List;
-import java.util.Optional;
 //import java.time.LocalDateTime;
 
-import com.example.sbb.answer.Answer;
-import com.example.sbb.question.Question;
-import com.example.sbb.question.QuestionRepository;
-import com.example.sbb.question.QuestionService;
+import com.example.sbb.community.CommunityService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 class SbbApplicationTests {
 	@Autowired
-	private QuestionService questionService;
+	private CommunityService questionService;
 
 	@Test
 	void testJpa() {

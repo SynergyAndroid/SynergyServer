@@ -1,4 +1,4 @@
-package com.example.sbb.question;
+package com.example.sbb.community;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -8,10 +8,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class QuestionForm {
+public class CommunityForm {
     @NotEmpty(message = "제목은 필수 사항입니다.")
     @Size(max = 200)
-    private String subject;
+    private String title;
 
     @NotEmpty(message = "내용은 필수 사항입니다.")
     private String content;

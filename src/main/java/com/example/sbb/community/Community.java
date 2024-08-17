@@ -1,9 +1,9 @@
-package com.example.sbb.question;
+package com.example.sbb.community;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.example.sbb.answer.Answer;
+//import com.example.sbb.answer.Answer;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,19 +18,19 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Question {
+public class Community {
     @Id //기본키를 나타냄
     @GeneratedValue(strategy = GenerationType.IDENTITY) //자동 1씩 증가
     private Integer id;
 
     @Column(length = 200)
-    private String subject;
+    private String title;
 
     @Column(columnDefinition = "TEXT")
     private String content;
 
     private LocalDateTime createDate;
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
-    private List<Answer> answerList;
+//    @OneToMany(mappedBy = "community", cascade = CascadeType.REMOVE)
+//    private List<Answer> answerList;
 }
