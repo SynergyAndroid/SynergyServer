@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.example.sbb.reply.Reply;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -20,8 +21,8 @@ import lombok.Setter;
 @Setter
 @Entity
 public class Community {
-    @Id //기본키를 나타냄
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //자동 1씩 증가
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(length = 200)
@@ -33,5 +34,6 @@ public class Community {
     private LocalDateTime createDate;
 
     @OneToMany(mappedBy = "community", cascade = CascadeType.REMOVE)
+    @JsonManagedReference // 순환 참조 방지를 위해 추가
     private List<Reply> replyList;
 }

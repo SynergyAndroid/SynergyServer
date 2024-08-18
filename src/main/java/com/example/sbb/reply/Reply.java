@@ -3,6 +3,8 @@ package com.example.sbb.reply;
 import java.time.LocalDateTime;
 
 import com.example.sbb.community.Community;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,10 +18,11 @@ public class Reply {
     private Integer id;
 
     @Column(columnDefinition = "Text")
-    private String content; //답변의 내용
+    private String content;
 
     private LocalDateTime createDate;
 
     @ManyToOne
+    @JsonBackReference // 순환 참조 방지를 위해 추가
     private Community community;
 }
