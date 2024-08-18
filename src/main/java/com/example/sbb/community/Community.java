@@ -3,7 +3,8 @@ package com.example.sbb.community;
 import java.time.LocalDateTime;
 import java.util.List;
 
-//import com.example.sbb.answer.Answer;
+import com.example.sbb.reply.Reply;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -31,6 +32,6 @@ public class Community {
 
     private LocalDateTime createDate;
 
-//    @OneToMany(mappedBy = "community", cascade = CascadeType.REMOVE)
-//    private List<Answer> answerList;
+    @OneToMany(mappedBy = "community", cascade = CascadeType.REMOVE)
+    private List<Reply> replyList;
 }

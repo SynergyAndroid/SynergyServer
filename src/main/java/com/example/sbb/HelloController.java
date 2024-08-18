@@ -11,19 +11,4 @@ public class HelloController {
     @ResponseBody
     public String hello(){
         return "Hello htj";
-    }
-
-//    @GetMapping("/sbb")
-//    @ResponseBody
-//    public String sbb(){
-//        return "안녕하세요 sbb에 오신 것을 환영합니다.";
-//    }
-}
-//
-//public class sbbhello{
-//    @GetMapping("/sbb")
-//    @ResponseBody
-//    public String sbb(){
-//        return "안녕하세요 sbb에 오신 것을 환영합니다.";
-//    }
-//}
+    }}
