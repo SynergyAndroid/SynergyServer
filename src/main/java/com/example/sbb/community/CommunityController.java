@@ -23,15 +23,15 @@ public class CommunityController {
     // 특정 커뮤니티 글의 상세 정보를 JSON으로 반환
     @GetMapping(value = "/community/detail/{id}")
     public ResponseEntity<Community> detail(@PathVariable("id") Integer id) {
-        Community community = this.communityService.getPost(id);
+        Community community = this.communityService.getCommunity(id);
         return ResponseEntity.ok(community);
     }
-
-    // 커뮤니티 글 작성 폼 (React Native와 통신 시에는 필요 없을 수 있음)
-    @GetMapping("/community/create")
-    public ResponseEntity<String> communityCreateForm() {
-        return ResponseEntity.ok("커뮤니티 글 작성 폼");
-    }
+//
+//    // 커뮤니티 글 작성 폼 (React Native와 통신 시에는 필요 없을 수 있음)
+//    @GetMapping("/community/create")
+//    public ResponseEntity<String> communityCreateForm() {
+//        return ResponseEntity.ok("커뮤니티 글 작성 폼");
+//    }
 
     // 커뮤니티 글을 생성하고, 성공 메시지를 JSON으로 반환
     @PostMapping("/community/create")

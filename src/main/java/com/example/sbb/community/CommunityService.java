@@ -25,12 +25,12 @@ public class CommunityService {
     }
 
     // 특정 제목의 커뮤니티 글을 가져옴
-    public Community getPost(String subject) {
-        return this.communityRepository.findBySubject(subject);
+    public Community getCommunity(String title) {
+        return this.communityRepository.findByTitle(title);
     }
 
     // ID를 통해 특정 커뮤니티 글을 가져옴
-    public Community getPost(Integer id) {
+    public Community getCommunity(Integer id) {
         return this.communityRepository.findById(id)
                 .orElseThrow(() -> new DataNotFoundException("Community post not found"));
     }
@@ -48,7 +48,7 @@ public class CommunityService {
     // 특정 커뮤니티 글을 업데이트 (예시: 제목과 내용을 업데이트)
     @Transactional
     public void update(Integer id, String title, String content) {
-        Community community = this.getPost(id);
+        Community community = this.getCommunity(id);
         community.setTitle(title);
         community.setContent(content);
         community.setCreateDate(LocalDateTime.now()); // 업데이트 시 현재 시간으로 갱신

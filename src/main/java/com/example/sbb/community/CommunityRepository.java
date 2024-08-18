@@ -7,9 +7,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CommunityRepository extends JpaRepository<Community, Integer> {
-    Community findBySubject(String subject);
-    Community findBySubjectAndContent(String subject, String content);
-    List<Community> findBySubjectLike(String subject);
+    Community findByTitle(String title);
+    Community findByTitleAndContent(String title, String content);
+    List<Community> findByTitleLike(String title);
 
     Page<Community> findAll(Pageable pageable);
 }
