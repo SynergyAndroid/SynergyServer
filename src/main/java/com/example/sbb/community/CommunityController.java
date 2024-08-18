@@ -35,11 +35,8 @@ public class CommunityController {
 
     // 커뮤니티 글을 생성하고, 성공 메시지를 JSON으로 반환
     @PostMapping("/community/create")
-    public ResponseEntity<String> communityCreate(@Valid @RequestBody CommunityForm communityForm, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return ResponseEntity.badRequest().body("Validation error");
-        }
-        this.communityService.create(communityForm.getTitle(), communityForm.getContent());
+    public ResponseEntity<String> communityCreate(String title, String context) {
+        this.communityService.create(title, context);
         return ResponseEntity.ok("커뮤니티 글이 성공적으로 생성되었습니다.");
     }
 }
