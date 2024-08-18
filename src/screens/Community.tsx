@@ -1,61 +1,83 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 
-
-// 인터페이스 지정하기 
 interface Post {
   id: number;
-  name: string;
-  age: number;
-  location: string;
+  title: string;
   content: string;
-  comments: string[];
+  createDate: string;
+  replyList: any[]; // 댓글 리스트의 구조에 따라 타입을 추가할 수 있습니다.
 }
 
 const Community: React.FC = () => {
   const navigation = useNavigation();
-  const [posts] = useState<Post[]>([
-    {
-      id: 1,
-      name: '해롱이',
-      age: 58,
-      location: '수원시 팔달구',
-      content: '이번주 목요일 저녁 8시에 영동시장 같이 가요 !!',
-      comments: ['쪽지드릴게요!', '저도 같이 가고 싶어요.'],
-    },
-    {
-      id: 2,
-      name: '한태진',
-      age: 60,
-      location: '수원시 권선구',
-      content: '내일 같이 낚시하러 가실 분 계신가요? 수원시청 앞에서 내일 오전 10시 출발입니다.',
-      comments: ['낚시 좋아하시나봐요!', '날씨가 좋아서 낚시하기 좋겠어요.'],
-    },
-  ]);
+  const [posts, setPosts] = useState<Post[]>([]); // 게시물 목록 상태
 
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await axios.get('http://172.30.107.121:9090/community/list');
+        
+        // 서버에서 반환된 전체 데이터를 콘솔에 출력
+        console.log('Response data:', response.data);
+
+        const contentData = response.data?.content; // response.data.content가 정의되어 있는지 확인
+
+        if (Array.isArray(contentData)) { // contentData가 배열인지 확인
+          const sortedPosts = contentData.sort((a: Post, b: Post) => 
+            new Date(b.createDate).getTime() - new Date(a.createDate).getTime()
+          );
+          setPosts(sortedPosts);
+        } else {
+          //console.error('Error: content is not an array:', contentData);
+          setPosts([]);
+        }
+      } catch (error) {
+       console.error('Error fetching posts:', error);
+        setPosts([]); 
+      }
+    };
+
+    fetchPosts(); // 컴포넌트가 처음 렌더링될 때 데이터 가져오기
+  }, []);
+
+  // 날짜 포맷 함수
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleString('ko-KR', {
+      month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'
+    });
+  };
+
+  // 각 게시물을 렌더링하는 함수
   const renderPost = (post: Post) => (
-    <TouchableOpacity
-      key={post.id}
-      style={styles.postContainer}
-      onPress={() => navigation.navigate('PostDetail', { post })}
-    >
-      <View style={styles.profileContainer}>
-        <Icon name="user" size={24} style={styles.profileIcon} />
-        <View>
-          <Text style={styles.nameAge}>{post.name} / {post.age}세</Text>
-          <Text style={styles.location}>{post.location}</Text>
+    <View key={post.id} style={styles.postContainer}>
+      <TouchableOpacity onPress={() => navigation.navigate('PostDetail', { post })}>
+        <View style={styles.profileContainer}>
+          <Icon name="user" size={40} style={styles.profileIcon} />
+          <View style={styles.authorInfo}>
+            <Text style={styles.authorText}>작성자: {post.id}</Text>
+            <Text style={styles.dateText}>{formatDate(post.createDate)}</Text>
+          </View>
         </View>
+        <Text style={styles.title}>{post.title || "No Title"}</Text>
+        <Text style={styles.content}>{post.content || "No Content"}</Text>
+      </TouchableOpacity>
+      
+      <View style={styles.replyContainer}>
+        <TouchableOpacity onPress={() => navigation.navigate('PostDetail', { post })}>
+          <Icon name="message1" size={20} color="#888" style={styles.replyIcon} />
+        </TouchableOpacity>
       </View>
-      <Text style={styles.content}>{post.content}</Text>
-    </TouchableOpacity>
+    </View>
   );
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.title}>게시판 보기</Text>
-      {posts.map(renderPost)}
+      <Text style={styles.pageTitle}>게시판 보기</Text>
+      {posts.length > 0 ? posts.map(renderPost) : <Text>No posts available.</Text>}
     </ScrollView>
   );
 };
@@ -66,39 +88,62 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#fff',
   },
-  title: {
+  pageTitle: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 30,
-    marginTop:10,
-    marginHorizontal:'auto'
+    marginTop: 10,
+    textAlign: 'center',
   },
   postContainer: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#eee',
     borderRadius: 8,
-    padding: 10,
-    marginBottom: 10,
+    padding: 15,
+    marginBottom: 20,
+    backgroundColor: '#f9f9f9',
   },
   profileContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 5,
+    marginBottom: 10,
   },
   profileIcon: {
     marginRight: 10,
   },
-  nameAge: {
+  authorInfo: {
+    flexDirection: 'column',
+  },
+  authorText: {
     fontSize: 16,
     fontWeight: 'bold',
+    color: '#333',
   },
-  location: {
-    fontSize: 14,
-    color: '#666',
+  dateText: {
+    fontSize: 12,
+    color: '#999',
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginVertical: 5,
+    color: '#222',
   },
   content: {
     fontSize: 16,
-    marginVertical: 10,
+    marginVertical: 5,
+    color: '#555',
+  },
+  replyContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 15,
+    borderTopWidth: 1,
+    borderTopColor: '#eee',
+    paddingTop: 10,
+  },
+  replyIcon: {
+    marginRight: 10,
   },
 });
 

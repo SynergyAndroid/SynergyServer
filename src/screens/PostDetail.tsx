@@ -1,5 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity } from 'react-native';
+import axios from 'axios';
+
+interface Comment {
+  id: number;
+  content: string;
+}
 
 interface PostDetailProps {
   route: any;
@@ -8,20 +14,58 @@ interface PostDetailProps {
 const PostDetail: React.FC<PostDetailProps> = ({ route }) => {
   const { post } = route.params;
   const [newComment, setNewComment] = useState('');
-  const [comments, setComments] = useState(post.comments);
+  const [comments, setComments] = useState<Comment[]>([]);
 
-  const handleAddComment = () => {
+  useEffect(() => {
+    // 서버에서 댓글 목록을 가져오는 함수
+    const fetchComments = async () => {
+      try {
+        const response = await axios.get(`http://172.30.107.121:9090/reply/list/${post.id}`);
+        setComments(response.data);
+      } catch (error) {
+        console.error('Error fetching comments:', error);
+      }
+    };
+
+    fetchComments();
+  }, [post.id]);
+
+  const handleAddComment = async () => {
     if (newComment.trim()) {
-      setComments([...comments, newComment]);
-      setNewComment('');
+      try {
+        // 서버에 댓글 추가 요청
+        const response = await axios.post(`http://172.30.107.121:9090/reply/create/${post.id}`, {
+          content: newComment,
+        });
+
+        if (response.status === 200) {
+          console.log('댓글이 성공적으로 추가되었습니다.');
+          setNewComment(''); // 댓글이 추가된 후 입력 필드 초기화
+          // 댓글 목록을 다시 불러옵니다.
+          fetchComments();
+        } else {
+          console.error('댓글 추가에 실패했습니다:', response.data);
+        }
+      } catch (error) {
+        console.error('Error adding comment:', error);
+      }
+    }
+  };
+
+  
+  const fetchComments = async () => {
+    try {
+      const response = await axios.get(`http://172.30.107.121:9090/reply/list/${post.id}`);
+      setComments(response.data);
+    } catch (error) {
+      console.error('Error fetching comments:', error);
     }
   };
 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.postContainer}>
-        <Text style={styles.title}>{post.name}</Text>
-        <Text style={styles.subtitle}>{post.location} · {post.age}세</Text>
+        <Text style={styles.title}>{post.title}</Text>
         <Text style={styles.content}>{post.content}</Text>
       </View>
       
@@ -29,9 +73,9 @@ const PostDetail: React.FC<PostDetailProps> = ({ route }) => {
       
       <View style={styles.commentsContainer}>
         <Text style={styles.commentsTitle}>댓글 {comments.length}개</Text>
-        {comments.map((comment: string, index: number) => (
-          <View key={index} style={styles.comment}>
-            <Text>{comment}</Text>
+        {comments.map((comment: Comment) => (
+          <View key={comment.id} style={styles.comment}>
+            <Text>{comment.content}</Text>
           </View>
         ))}
       </View>
@@ -64,11 +108,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#666',
-    marginBottom: 16,
   },
   content: {
     fontSize: 18,
@@ -108,7 +147,7 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   button: {
-    backgroundColor: '#E0BACB',
+    backgroundColor: '#005F40',
     padding: 10,
     borderRadius: 4,
   },

@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useNavigationState } from '@react-navigation/native';
 
 const BottomBar = () => {
   const [selectedTab, setSelectedTab] = useState('홈');
   const navigation = useNavigation();
+  const currentRouteName = useNavigationState(state =>  state?.routes[state.index]?.name);
 
   const tabs = [
     { name: '홈', icon: 'home', screen: '홈' },
@@ -15,21 +16,29 @@ const BottomBar = () => {
     { name: '프로필', icon: 'user', screen: '프로필' },
   ];
 
+  useEffect(() => {
+    if (currentRouteName) {
+      const currentTab = tabs.find(tab => tab.screen === currentRouteName);
+      if (currentTab) {
+        setSelectedTab(currentTab.name);
+      }
+    }
+  }, [currentRouteName]);
+
   return (
     <View style={styles.container}>
       {tabs.map((tab) => (
         <TouchableOpacity
           key={tab.name}
           onPress={() => {
-            setSelectedTab(tab.name); // 사용자가 선택한 탭의 이름을 selectedTab 상태에 저장
-            navigation.navigate(tab.screen); 
+            navigation.navigate(tab.screen);
           }}
           style={styles.tabItem}
         >
           <Icon
             name={tab.icon}
             size={24}
-            color={selectedTab === tab.name ? '#E0BACB' : '#000'}
+            color={selectedTab === tab.name ? '#005F40' : '#000'}
           />
           <Text
             style={[
@@ -53,7 +62,6 @@ const styles = StyleSheet.create({
     height: 60,
     borderTopColor: 'black',
     backgroundColor: 'white',
-    
   },
   tabItem: {
     justifyContent: 'center',
@@ -65,7 +73,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   selectedLabelStyle: {
-    color: '#E0BACB',
+    color: '#005F40',
   },
 });
 
