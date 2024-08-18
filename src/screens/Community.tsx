@@ -19,7 +19,7 @@ const Community: React.FC = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get('http://172.30.107.121:9090/community/list');
+        const response = await axios.get('http://192.168.0.27:9090/community/list');
         
         // 서버에서 반환된 전체 데이터를 콘솔에 출력
         console.log('Response data:', response.data);
@@ -35,8 +35,19 @@ const Community: React.FC = () => {
           //console.error('Error: content is not an array:', contentData);
           setPosts([]);
         }
-      } catch (error) {
-       console.error('Error fetching posts:', error);
+      } catch (error: any) {
+        console.error('Error fetching posts:', error.message);
+        if (error.response) {
+          // 서버에서 반환한 응답이 있는 경우
+          console.error('Response status:', error.response.status);
+          console.error('Response data:', error.response.data);
+        } else if (error.request) {
+          // 요청이 만들어졌지만 응답을 받지 못한 경우
+          console.error('No response received:', error.request);
+        } else {
+          // 요청을 설정하는 중에 문제가 발생한 경우
+          console.error('Request error:', error.message);
+        }
         setPosts([]); 
       }
     };

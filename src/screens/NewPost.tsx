@@ -24,8 +24,9 @@ const NewPost = () => {
                     text: '확인',
                     onPress: async () => {
                         // 서버에 POST 요청
+                        
                         try {
-                            const response = await axios.post('http://172.30.107.121:9090/community/create', {
+                            const response = await axios.post('http://192.168.0.27:9090/community/create', {
                                 title: title,
                                 content: content,
                             });

@@ -16,32 +16,39 @@ const PostDetail: React.FC<PostDetailProps> = ({ route }) => {
   const [newComment, setNewComment] = useState('');
   const [comments, setComments] = useState<Comment[]>([]);
 
-  useEffect(() => {
-    // 서버에서 댓글 목록을 가져오는 함수
-    const fetchComments = async () => {
-      try {
-        const response = await axios.get(`http://172.30.107.121:9090/reply/list/${post.id}`);
+  // 서버에서 댓글 목록을 가져오는 함수
+  const fetchComments = async () => {
+    try {
+      const response = await axios.get(`http://192.168.0.27:9090/reply/list/${post.id}`);
+      if (Array.isArray(response.data)) {
         setComments(response.data);
-      } catch (error) {
-        console.error('Error fetching comments:', error);
+      } else {
+        console.error("Unexpected response data:", response.data);
+        setComments([]);  // 예상치 못한 데이터 구조라면 빈 배열로 설정
       }
-    };
+    } catch (error) {
+      console.error('Error fetching comments:', error);
+      setComments([]);
+    }
+  };
 
+  useEffect(() => {
     fetchComments();
-  }, [post.id]);
+  }, []);
 
   const handleAddComment = async () => {
     if (newComment.trim()) {
       try {
-        // 서버에 댓글 추가 요청
-        const response = await axios.post(`http://172.30.107.121:9090/reply/create/${post.id}`, {
+        // 댓글 추가 요청
+        const response = await axios.post(`http://192.168.0.27:9090/reply/create/${post.id}`, {
           content: newComment,
         });
 
         if (response.status === 200) {
           console.log('댓글이 성공적으로 추가되었습니다.');
           setNewComment(''); // 댓글이 추가된 후 입력 필드 초기화
-          // 댓글 목록을 다시 불러옵니다.
+          
+          // 새 댓글이 추가된 후 전체 댓글 목록을 다시 가져옴
           fetchComments();
         } else {
           console.error('댓글 추가에 실패했습니다:', response.data);
@@ -49,16 +56,6 @@ const PostDetail: React.FC<PostDetailProps> = ({ route }) => {
       } catch (error) {
         console.error('Error adding comment:', error);
       }
-    }
-  };
-
-  
-  const fetchComments = async () => {
-    try {
-      const response = await axios.get(`http://172.30.107.121:9090/reply/list/${post.id}`);
-      setComments(response.data);
-    } catch (error) {
-      console.error('Error fetching comments:', error);
     }
   };
 
@@ -73,11 +70,15 @@ const PostDetail: React.FC<PostDetailProps> = ({ route }) => {
       
       <View style={styles.commentsContainer}>
         <Text style={styles.commentsTitle}>댓글 {comments.length}개</Text>
-        {comments.map((comment: Comment) => (
-          <View key={comment.id} style={styles.comment}>
-            <Text>{comment.content}</Text>
-          </View>
-        ))}
+        {comments.length > 0 ? (
+          comments.map((comment: Comment) => (
+            <View key={comment.id} style={styles.comment}>
+              <Text>{comment.content}</Text>
+            </View>
+          ))
+        ) : (
+          <Text>No comments yet.</Text>
+        )}
       </View>
 
       <View style={styles.inputContainer}>
