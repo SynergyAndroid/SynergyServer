@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity } from 'react-native';
 import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
+
 
 interface Comment {
   id: number;
@@ -48,10 +50,10 @@ const PostDetail: React.FC<PostDetailProps> = ({ route }) => {
 
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.postContainer}>
-        <Text style={styles.title}>{post.title}</Text>
-        <Text style={styles.content}>{post.content}</Text>
-      </View>
+        <View style={styles.postContainer}>
+            <Text style={styles.title}>{post.title}</Text>
+            <Text style={styles.content}>{post.content}</Text>
+        </View>
       
       <View style={styles.divider} />
       
@@ -91,6 +93,8 @@ const styles = StyleSheet.create({
   },
   postContainer: {
     marginBottom: 16,
+    marginTop:10,
+    
   },
   title: {
     fontSize: 24,
