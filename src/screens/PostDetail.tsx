@@ -14,33 +14,19 @@ interface PostDetailProps {
 const PostDetail: React.FC<PostDetailProps> = ({ route }) => {
   const { post } = route.params;
   const [newComment, setNewComment] = useState('');
-  const [comments, setComments] = useState<Comment[]>([]);
+  const [comments, setComments] = useState<Comment[]>([]);  // 초기 댓글 목록을 빈 배열로 설정
 
-  // 서버에서 댓글 목록을 가져오는 함수
-  const fetchComments = async () => {
-    try {
-      const response = await axios.get(`http://192.168.0.27:9090/reply/list/${post.id}`);
-      if (Array.isArray(response.data)) {
-        setComments(response.data);
-      } else {
-        console.error("Unexpected response data:", response.data);
-        setComments([]);  // 예상치 못한 데이터 구조라면 빈 배열로 설정
-      }
-    } catch (error) {
-      console.error('Error fetching comments:', error);
-      setComments([]);
-    }
-  };
-
+  // 페이지 로드 시 댓글 목록을 가져오는 함수
   useEffect(() => {
-    fetchComments();
-  }, []);
+    if (post.replyList) {
+      setComments(post.replyList);  // post.replyList에서 댓글 목록 가져오기
+    }
+  }, [post.replyList]);
 
   const handleAddComment = async () => {
     if (newComment.trim()) {
       try {
-        // 댓글 추가 요청
-        const response = await axios.post(`http://192.168.0.27:9090/reply/create/${post.id}`, {
+        const response = await axios.post(`http://172.30.1.64:9090/reply/create/${post.id}`, {
           content: newComment,
         });
 
@@ -48,8 +34,9 @@ const PostDetail: React.FC<PostDetailProps> = ({ route }) => {
           console.log('댓글이 성공적으로 추가되었습니다.');
           setNewComment(''); // 댓글이 추가된 후 입력 필드 초기화
           
-          // 새 댓글이 추가된 후 전체 댓글 목록을 다시 가져옴
-          fetchComments();
+          // 새 댓글이 추가된 후 댓글 목록을 수동으로 업데이트
+          const updatedComments = [...comments, { id: response.data.id, content: newComment }];
+          setComments(updatedComments);
         } else {
           console.error('댓글 추가에 실패했습니다:', response.data);
         }
