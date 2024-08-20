@@ -5,7 +5,7 @@ const SignUp=() => {
     return (
         <View>
             <Text>
-                SignUp
+                회원가입!
             </Text>
         </View>
     )
@@ -13,3 +13,4 @@ const SignUp=() => {
 }
 
 export default SignUp;
+

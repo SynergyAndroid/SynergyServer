@@ -20,7 +20,7 @@ const OnboardingScreen: React.FC = () => {
     },
     {
       title: '커뮤니티 검증',
-      text: '특정 종교 권유 등 목적이 불건전한 커뮤니티 게시글은 삭제되는 기능을 통해 깨끗하고 검증된 커뮤니티를 만날 수 있습니다.',
+      text: '특정 종교 권유 등 목적이 불건전한 커뮤니티 게시글은 삭제되는 기능이 있습니다. 깨끗하고 검증된 커뮤니티를 만나보세요.',
       image: require('../../components/assets/images/studying.png')
     },
   ];
@@ -30,8 +30,12 @@ const OnboardingScreen: React.FC = () => {
   };
 
   const handleLoginPress = () => {
-    navigation.navigate("홈");
+    navigation.navigate("Login");
   };
+
+  const handleSignUpPress = () => {
+    navigation.navigate('SignUp');
+  }
 
   return (
     <View style={styles.container}>
@@ -61,6 +65,9 @@ const OnboardingScreen: React.FC = () => {
       </View>
       <TouchableOpacity style={styles.loginButton} onPress={handleLoginPress}>
         <Text style={styles.loginButtonText}>로그인</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={handleSignUpPress}>
+            <Text style={styles.signUpText}>어플이 처음이신가요?</Text>
       </TouchableOpacity>
     </View>
   );
@@ -116,17 +123,26 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   loginButton: {
-    backgroundColor: '#7ce6c3',
+    backgroundColor: '#005F40',
     padding: 15,
     alignItems: 'center',
     marginHorizontal: 40,
-    marginBottom: 30,
-    borderRadius: 5,
+    marginBottom: 10,
+    borderRadius: 7,
   },
   loginButtonText: {
     fontSize: 18,
     fontWeight: 'bold',
+    color:'white'
   },
+  signUpText: {
+    fontSize: 14,
+    textAlign:'center',
+    marginBottom:20,
+    color:'#005F40'
+
+
+  }
 });
 
 export default OnboardingScreen;

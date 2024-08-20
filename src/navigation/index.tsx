@@ -1,57 +1,38 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-import Home from '../screens/Home';
-import SignUp from '../screens/SignUp';
-import Login from '../screens/Login';
-import NewPost from '../screens/NewPost';
-import BottomBar from '../components/bottom';
-import Community from '../screens/Community';
-import Profile from '../screens/Profile';
-import Chat from '../screens/Chat';
-import ChatList from '../screens/ChatList';
-import PostDetail from '../screens/PostDetail';
-import OnboardingNavigator from '../navigation/onboardingNavigator'; // 새로 추가된 부분
-
-const Stack = createNativeStackNavigator();
-
-function MainStack() {
-  return (
-    <>
-      <Stack.Navigator initialRouteName="홈">
-        <Stack.Screen name="홈" component={Home} options={{ headerShown: false }} />
-        <Stack.Screen name="회원가입" component={SignUp} options={{ headerShown: false }} />
-        <Stack.Screen name="로그인" component={Login} options={{ headerShown: false }} />
-        <Stack.Screen name="새로운 글 작성" component={NewPost} />
-        <Stack.Screen name="커뮤니티" component={Community} />
-        <Stack.Screen name="상세글 보기" component={PostDetail} />
-        <Stack.Screen name="프로필" component={Profile} />
-        <Stack.Screen name="채팅" component={Chat} />
-        <Stack.Screen name="채팅목록" component={ChatList} />
-      </Stack.Navigator>
-      <BottomBar />
-    </>
-  );
-}
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import OnboardingNavigator from './OnboardingNavigator';
+import AppNavigator from './AppNavigator';
 
 function Appnavigation() {
-  const [isFirstLaunch, setIsFirstLaunch] = React.useState(true); // 첫 실행 여부를 관리
+  const [isFirstLaunch, setIsFirstLaunch] = React.useState(null);
 
   React.useEffect(() => {
-    // 첫 실행 여부를 저장하고 필요한 경우 이를 변경
-    // 실제 앱에서는 AsyncStorage 등을 사용해 관리할 수 있습니다.
     const checkFirstLaunch = async () => {
-      // 로직에 따라 첫 실행 여부를 결정
-      // setIsFirstLaunch(false);
+      try {
+        const hasLaunched = await AsyncStorage.getItem('hasLaunched');
+        if (hasLaunched === null) {
+          setIsFirstLaunch(true);
+          await AsyncStorage.setItem('hasLaunched', 'true');
+        } else {
+          setIsFirstLaunch(false);
+        }
+      } catch (error) {
+        console.error('Error checking first launch:', error);
+      }
     };
 
     checkFirstLaunch();
   }, []);
 
+  if (isFirstLaunch === null) {
+    // 앱 초기화 중이므로 로딩 화면을 보여줄 수 있습니다.
+    return null; // 또는 로딩 스피너 컴포넌트를 반환
+  }
+
   return (
     <NavigationContainer>
-      {isFirstLaunch ? <OnboardingNavigator /> : <MainStack />} 
+      {isFirstLaunch ? <OnboardingNavigator /> : <AppNavigator />}
     </NavigationContainer>
   );
 }
