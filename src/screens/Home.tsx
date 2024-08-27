@@ -47,7 +47,7 @@ const Home = () => {
         <View style={styles.container}>
             <SafeAreaView style={styles.content}>
                 <View>
-                    <Text style={styles.pageTitle}>주변 맛집</Text>
+                    <Text style={styles.pageTitle}>내 주변 맛집</Text>
                     {error && <Text style={styles.errorText}>데이터를 불러오는 중 오류가 발생했습니다.</Text>}
                 </View>
                 <FlatList

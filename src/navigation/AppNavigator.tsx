@@ -12,7 +12,6 @@ import PostDetail from '../screens/PostDetail';
 import OnboardingScreen from '../screens/onboarding/Onboarding';
 import TermsAgreement from '../screens/SignUp/TermsAgreements';
 import UserInfo from '../screens/SignUp/UserInfo';
-import LocationConsent from '../screens/SignUp/LocationConsent';
 import SignUpComplete from '../screens/SignUp/SignUpComplete';
 import Login from '../screens/Login';
 
@@ -32,7 +31,6 @@ function AppNavigator() {
         <Stack.Screen name="채팅목록" component={ChatList} />
         <Stack.Screen name="TermsAgreement" component={TermsAgreement} options={{ headerShown: false }} />
         <Stack.Screen name="UserInfo" component={UserInfo} options={{ headerShown: false }} />
-        <Stack.Screen name="LocationConsent" component={LocationConsent} options={{ headerShown: false }} />
         <Stack.Screen name="SignUpComplete" component={SignUpComplete} options={{ headerShown: false }} />
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
       </Stack.Navigator>

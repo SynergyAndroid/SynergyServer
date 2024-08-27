@@ -38,7 +38,7 @@ const UserInfo = () => {
 
     if (password.length >= 4 && password === confirmPassword) {
       // 여기서 사용자 정보를 저장할 수 있습니다 (예: AsyncStorage 사용)
-      navigation.navigate('LocationConsent');
+      navigation.navigate('SignUpComplete');
     }
   };
 
