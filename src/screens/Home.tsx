@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, SafeAreaView, Image, FlatList } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import axios from "axios";
-//import { REACT_NATIVE_APP_SERVICE_KEY } from "@env"; 
+import BottomBar from "../components/bottom";
 
 const Home = () => {
     const [items, setItems] = useState([]);
@@ -44,23 +44,29 @@ const Home = () => {
     );
 
     return (
-        <SafeAreaView style={styles.container}>
-            <View>
-                <Text style={styles.pageTitle}>주변 맛집</Text>
-                {error && <Text style={styles.errorText}>데이터를 불러오는 중 오류가 발생했습니다.</Text>}
-            </View>
-            <FlatList
-                data={items}
-                renderItem={renderItem}
-                keyExtractor={(item) => item.contentid.toString()}
-                contentContainerStyle={{ paddingBottom: 20 }} 
-            />
-        </SafeAreaView>
+        <View style={styles.container}>
+            <SafeAreaView style={styles.content}>
+                <View>
+                    <Text style={styles.pageTitle}>주변 맛집</Text>
+                    {error && <Text style={styles.errorText}>데이터를 불러오는 중 오류가 발생했습니다.</Text>}
+                </View>
+                <FlatList
+                    data={items}
+                    renderItem={renderItem}
+                    keyExtractor={(item) => item.contentid.toString()}
+                    contentContainerStyle={{ paddingBottom: 20 }} 
+                />
+            </SafeAreaView>
+            <BottomBar />
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
+    },
+    content: {
         flex: 1,
         paddingHorizontal: 20,
     },

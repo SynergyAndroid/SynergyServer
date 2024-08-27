@@ -34,7 +34,7 @@ const OnboardingScreen: React.FC = () => {
   };
 
   const handleSignUpPress = () => {
-    navigation.navigate('SignUp');
+    navigation.navigate('TermsAgreement');
   }
 
   return (

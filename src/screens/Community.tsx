@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-nati
 import Icon from 'react-native-vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
+import BottomBar from '../components/bottom';
 
 interface Post {
   id: number;
@@ -89,14 +90,21 @@ const Community: React.FC = () => {
   );
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.firstContainer}>
+      <ScrollView style={styles.container}>
 
-      {posts.length > 0 ? posts.map(renderPost) : <Text>No posts available.</Text>}
-    </ScrollView>
+        {posts.length > 0 ? posts.map(renderPost) : <Text>No posts available.</Text>}
+      </ScrollView>
+      <BottomBar />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  firstContainer:{
+
+    flex:1,
+  },
   container: {
     flex: 1,
     padding: 10,
