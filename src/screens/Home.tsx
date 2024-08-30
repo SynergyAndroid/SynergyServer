@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, SafeAreaView, Image, FlatList } from "react-native";
+import { View, Text, StyleSheet, SafeAreaView, Image, FlatList,ScrollView } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import axios from "axios";
 import BottomBar from "../components/bottom";
@@ -45,18 +45,38 @@ const Home = () => {
 
     return (
         <View style={styles.container}>
-            <SafeAreaView style={styles.content}>
+            <ScrollView style={styles.content}>
+                <View>
+                    <Text style={styles.realTitle}>안녕하세요! 혜원 님!</Text>
+                </View>
+
+
                 <View>
                     <Text style={styles.pageTitle}>내 주변 맛집</Text>
                     {error && <Text style={styles.errorText}>데이터를 불러오는 중 오류가 발생했습니다.</Text>}
                 </View>
-                <FlatList
+        
+                    <FlatList
+                        data={items}
+                        renderItem={renderItem}
+                        keyExtractor={(item) => item.contentid.toString()}
+                        horizontal={true} 
+                        showsHorizontalScrollIndicator={false} 
+                        contentContainerStyle={styles.listContent}
+                    />
+                <View>
+                    <Text style={styles.pageTitle}>내 근처에서 갈만한 곳</Text>
+                </View>
+                <FlatList 
                     data={items}
                     renderItem={renderItem}
                     keyExtractor={(item) => item.contentid.toString()}
-                    contentContainerStyle={{ paddingBottom: 20 }} 
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={styles.listContent}
+                
                 />
-            </SafeAreaView>
+            </ScrollView>
             <BottomBar />
         </View>
     );
@@ -66,20 +86,27 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
+    realTitle:{
+        fontSize:20,
+        color:"black",
+        textAlign:"center",
+        marginTop:30,
+    },
+
     content: {
-        flex: 1,
+        flex: 2,
         paddingHorizontal: 20,
     },
     pageTitle: {
         marginTop: 30,
-        fontSize: 30,
+        fontSize: 20,
         fontWeight: "bold",
         marginBottom: 20,
         color: "black",
     },
     itemContainer: {
-        flexDirection: "row",
-        marginBottom: 20,
+        width: 250, 
+        marginRight: 15, 
         backgroundColor: "#f9f9f9",
         borderRadius: 10,
         overflow: "hidden",
@@ -90,20 +117,17 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
     },
     image: {
-        width: 100,
-        height: 100,
-        borderRadius: 10,
+        width: "100%",
+        height: 150,
     },
     iconContainer: {
-        width: 100,
-        height: 100,
+        width: "100%",
+        height: 150,
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "#f0f0f0",
-        borderRadius: 10,
     },
     infoContainer: {
-        flex: 1,
         padding: 10,
     },
     title: {
@@ -114,10 +138,6 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: "#666",
         marginVertical: 5,
-    },
-    distance: {
-        fontSize: 12,
-        color: "#999",
     },
     phone: {
         fontSize: 12,
@@ -132,6 +152,7 @@ const styles = StyleSheet.create({
     },
     listContent: {
         paddingBottom: 20, 
+        
     },
 });
 

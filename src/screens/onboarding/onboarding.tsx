@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import PagerView from 'react-native-pager-view';
 import { useNavigation } from '@react-navigation/native';
+// import * as KakaoLogin from '@react-native-seoul/kakao-login';
 
 const OnboardingScreen: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -11,17 +12,17 @@ const OnboardingScreen: React.FC = () => {
     {
       title: '시니어들의 커뮤니티 형성',
       text: '시니어들을 위한! 시니어들에 의한! 시니어 맞춤 커뮤니티를 만들어 다른 사람들과의 모임을 즐겨보세요',
-      image: require('../../components/assets/images/friends.png')
+      image: require('../../components/assets/images/friends.png'),
     },
     {
       title: '내 근처 기반 장소 추천',
       text: '내 근처에서 어디를 갈까 고민한 적 있나요? 시:너지는 위치기반으로 사용자의 맞춤장소를 추천해드립니다!',
-      image: require('../../components/assets/images/travelMan.png')
+      image: require('../../components/assets/images/travelMan.png'),
     },
     {
       title: '커뮤니티 검증',
       text: '특정 종교 권유 등 목적이 불건전한 커뮤니티 게시글은 삭제되는 기능이 있습니다. 깨끗하고 검증된 커뮤니티를 만나보세요.',
-      image: require('../../components/assets/images/studying.png')
+      image: require('../../components/assets/images/studying.png'),
     },
   ];
 
@@ -33,9 +34,18 @@ const OnboardingScreen: React.FC = () => {
     navigation.navigate("Login");
   };
 
+  // 홈버튼으로 일단 넘어가게 하려고 만든거임...
+  // 나중에 없앨거임!!!
+
+  const handleHomePress =() => {
+    navigation.navigate("홈");
+  };
+
+  /*
   const handleSignUpPress = () => {
     navigation.navigate('TermsAgreement');
-  }
+  };
+  */
 
   return (
     <View style={styles.container}>
@@ -64,10 +74,13 @@ const OnboardingScreen: React.FC = () => {
         ))}
       </View>
       <TouchableOpacity style={styles.loginButton} onPress={handleLoginPress}>
-        <Text style={styles.loginButtonText}>로그인</Text>
+        <Image
+          source={require('../../components/assets/images/kakao_login_medium_wide.png')}
+          style={styles.kakaoSymbol}
+        />
       </TouchableOpacity>
-      <TouchableOpacity onPress={handleSignUpPress}>
-            <Text style={styles.signUpText}>어플이 처음이신가요?</Text>
+      <TouchableOpacity  onPress={handleHomePress}>
+        <Text>홈버튼</Text>
       </TouchableOpacity>
     </View>
   );
@@ -90,14 +103,14 @@ const styles = StyleSheet.create({
   image: {
     width: 250,
     height: 250,
-    marginTop:50,
+    marginTop: 50,
     resizeMode: 'contain',
     marginBottom: 30,
   },
   title: {
     fontSize: 22,
     fontWeight: 'bold',
-    color:'black',
+    color: 'black',
     textAlign: 'center',
     marginBottom: 10,
   },
@@ -123,25 +136,24 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   loginButton: {
-    backgroundColor: '#005F40',
-    padding: 15,
+    backgroundColor: '#FEE500',
+    padding: 5,
     alignItems: 'center',
     marginHorizontal: 40,
-    marginBottom: 10,
-    borderRadius: 7,
+    marginBottom: 30,
+    borderRadius: 12,
   },
-  loginButtonText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color:'white'
+  kakaoSymbol: {
+    width: "100%",  
+    height: undefined, 
+    aspectRatio: 6, 
+    resizeMode: 'contain',
   },
   signUpText: {
     fontSize: 14,
-    textAlign:'center',
-    marginBottom:20,
-    color:'#005F40'
-
-
+    textAlign: 'center',
+    marginBottom: 20,
+    color: '#000000D9', 
   }
 });
 
