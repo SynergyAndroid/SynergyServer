@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Icon from 'react-native-vector-icons/AntDesign';
+import Icon from 'react-native-vector-icons/Octicons';
 import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 import { useNavigation, useNavigationState } from '@react-navigation/native';
 
@@ -10,10 +10,10 @@ const BottomBar = () => {
 
   const tabs = [
     { name: '홈', icon: 'home', screen: '홈' },
-    { name: '커뮤니티', icon: 'team', screen: '커뮤니티' },
-    { name: '글 작성', icon: 'pluscircleo', screen: '새로운 글 작성' },
+    { name: '커뮤니티', icon: 'people', screen: '커뮤니티' },
+    { name: '글 작성', icon: 'plus-circle', screen: '새로운 글 작성' },
     { name: '채팅', icon: 'mail', screen: '채팅목록' },
-    { name: '프로필', icon: 'user', screen: '프로필' },
+    { name: '프로필', icon: 'person', screen: '프로필' },
   ];
 
   useEffect(() => {
@@ -76,7 +76,12 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   selectedLabelStyle: {
+    //backgroundColor:"#7d965e",
+    //borderRadius:30,
+    //padding:10
+
     color: '#005F40',
+    //backgroundColor:"#7d965e"
   },
 });
 

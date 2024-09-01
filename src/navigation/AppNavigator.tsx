@@ -14,6 +14,10 @@ import TermsAgreement from '../screens/SignUp/TermsAgreements';
 import UserInfo from '../screens/SignUp/UserInfo';
 import SignUpComplete from '../screens/SignUp/SignUpComplete';
 import Login from '../screens/Login';
+import ApiPractice from '../screens/ApiPractice';
+import HowToUse from '../screens/HowToUse';
+
+
 
 const Stack = createNativeStackNavigator();
 
@@ -33,6 +37,8 @@ function AppNavigator() {
         <Stack.Screen name="UserInfo" component={UserInfo} options={{ headerShown: false }} />
         <Stack.Screen name="SignUpComplete" component={SignUpComplete} options={{ headerShown: false }} />
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+        <Stack.Screen name="ApiPracitce" component={ApiPractice} options={{ headerShown: false }} />
+        <Stack.Screen name="HowToUse" component={HowToUse} options={{ headerShown: false }} />
       </Stack.Navigator>
   
     </>

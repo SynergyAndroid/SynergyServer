@@ -11,18 +11,32 @@ const OnboardingScreen: React.FC = () => {
   const onboardingData = [
     {
       title: '시니어들의 커뮤니티 형성',
-      text: '시니어들을 위한! 시니어들에 의한! 시니어 맞춤 커뮤니티를 만들어 다른 사람들과의 모임을 즐겨보세요',
-      image: require('../../components/assets/images/friends.png'),
+      text: `시니어들을 위한! 시니어들에 의한! 
+      시니어 맞춤 커뮤니티를 통해 
+  함께 여행을 떠나보세요`,
+      image: require('../../components/assets/images/Networking.png'),
     },
     {
       title: '내 근처 기반 장소 추천',
-      text: '내 근처에서 어디를 갈까 고민한 적 있나요? 시:너지는 위치기반으로 사용자의 맞춤장소를 추천해드립니다!',
-      image: require('../../components/assets/images/travelMan.png'),
+      text: `내 근처에서 어디를 갈까 고민한 적 있나요? 
+      시너지는 위치기반으로 
+      사용자의 맞춤장소를 추천해드립니다!`,
+      image: require('../../components/assets/images/finds.png'),
+    },
+    {
+      title: ' 맞춤 여행정보',
+      text: `시너지는 여러분을 위한 맞춤 코스를 제공해요.
+       장애인,어르신,영유아 등 모두를 위한 여행을
+       부담없이 즐겨보세요
+        `,
+      image: require('../../components/assets/images/love.png'),
     },
     {
       title: '커뮤니티 검증',
-      text: '특정 종교 권유 등 목적이 불건전한 커뮤니티 게시글은 삭제되는 기능이 있습니다. 깨끗하고 검증된 커뮤니티를 만나보세요.',
-      image: require('../../components/assets/images/studying.png'),
+      text: `특정 종교 권유 등 목적이 불건전한 
+      커뮤니티 게시글은 지속적으로 삭제됩니다. 
+      깨끗하고 검증된 커뮤니티를 만나보세요.`,
+      image: require('../../components/assets/images/fire.png'),
     },
   ];
 
@@ -90,10 +104,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-between',
-    paddingVertical: 20,
+    paddingVertical: 30,
   },
   pagerView: {
     flex: 1,
+    
   },
   page: {
     justifyContent: 'center',
@@ -108,11 +123,12 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   title: {
-    fontSize: 22,
-    fontWeight: 'bold',
+    fontSize: 20,
+    fontWeight:'bold',
     color: 'black',
     textAlign: 'center',
-    marginBottom: 10,
+    marginBottom: 20,
+    marginTop:20
   },
   text: {
     fontSize: 16,
@@ -129,7 +145,9 @@ const styles = StyleSheet.create({
     height: 10,
     width: 10,
     borderRadius: 5,
-    backgroundColor: 'gray',
+    borderColor:"black",
+    borderWidth: 1, 
+    backgroundColor: 'transparent', 
     marginHorizontal: 5,
   },
   activeIndicator: {
