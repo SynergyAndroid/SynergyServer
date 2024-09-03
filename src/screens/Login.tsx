@@ -15,7 +15,7 @@ const Login: React.FC = () => {
       
           const profile = await KakaoLogin.getProfile();
           console.log('GetProfile Success', JSON.stringify(profile));
-      
+       
   
           navigation.navigate('홈');
         } catch (error) {

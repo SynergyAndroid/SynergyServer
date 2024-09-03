@@ -5,6 +5,11 @@ import Icon from "react-native-vector-icons/Foundation";
 import axios from "axios";
 import BottomBar from "../components/bottom";
 import { useNavigation } from '@react-navigation/native';
+import { 
+    REACT_APP_YUMMY, 
+    REACT_APP_ROAD, 
+    REACT_APP_TRIP 
+} from '@env';
 
 
 
@@ -20,13 +25,13 @@ const Home = () => {
 
             switch (selectedCategory) {
                 case '맛집':
-                    url = "https://apis.data.go.kr/B551011/KorService1/locationBasedList1?serviceKey=gqHZ5yu%2BB6jXttqafw6lgOrR3G8NoH%2B10H%2BFB2SkhGl948SP4EoO4js4m2ozWMIqreLdiPUa20k189Va7KHpNA%3D%3D&numOfRows=10&pageNo=3&MobileOS=AND&MobileApp=Synergy&_type=json&listYN=Y&arrange=A&mapX=126.981611&mapY=37.568477&radius=1000&contentTypeId=39";
+                    url = REACT_APP_YUMMY;
                     break;
                 case '산책길':
-                    url = "https://apis.data.go.kr/B551011/KorWithService1/locationBasedList1?serviceKey=gqHZ5yu%2BB6jXttqafw6lgOrR3G8NoH%2B10H%2BFB2SkhGl948SP4EoO4js4m2ozWMIqreLdiPUa20k189Va7KHpNA%3D%3D&numOfRows=10&pageNo=1&MobileOS=AND&MobileApp=AppTest&listYN=Y&arrange=A&mapX=126.981611&mapY=37.568477&radius=1000&_type=json"; 
+                    url = REACT_APP_ROAD;
                     break;
                 case '여행':
-                    url = "https://apis.data.go.kr/B551011/KorService1/locationBasedList1?serviceKey=gqHZ5yu%2BB6jXttqafw6lgOrR3G8NoH%2B10H%2BFB2SkhGl948SP4EoO4js4m2ozWMIqreLdiPUa20k189Va7KHpNA%3D%3D&numOfRows=10&pageNo=3&MobileOS=AND&MobileApp=Synergy&_type=json&listYN=Y&arrange=A&mapX=126.981611&mapY=37.568477&radius=1000&contentTypeId=12"; // Example: 여행 API (update with the correct one)
+                    url = REACT_APP_TRIP;
                     break;
                 default:
                     url = "";
