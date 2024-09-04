@@ -1,3 +1,4 @@
+/*
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, StyleSheet, TouchableOpacity, Touchable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -152,3 +153,4 @@ const styles = StyleSheet.create({
 });
 
 export default TermsAgreement;
+*/
