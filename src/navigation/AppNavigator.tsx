@@ -10,7 +10,6 @@ import Chat from '../screens/Chat';
 import ChatList from '../screens/ChatList';
 import PostDetail from '../screens/PostDetail';
 import OnboardingScreen from '../screens/onboarding/onboarding';
-import TermsAgreement from '../screens/SignUp/TermsAgreements';
 import UserInfo from '../screens/SignUp/UserInfo';
 import SignUpComplete from '../screens/SignUp/SignUpComplete';
 import Login from '../screens/Login';
@@ -33,7 +32,6 @@ function AppNavigator() {
         <Stack.Screen name="프로필" component={Profile} />
         <Stack.Screen name="채팅" component={Chat} />
         <Stack.Screen name="채팅목록" component={ChatList} />
-        <Stack.Screen name="TermsAgreement" component={TermsAgreement} options={{ headerShown: false }} />
         <Stack.Screen name="UserInfo" component={UserInfo} options={{ headerShown: false }} />
         <Stack.Screen name="SignUpComplete" component={SignUpComplete} options={{ headerShown: false }} />
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
