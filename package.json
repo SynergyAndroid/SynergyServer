@@ -13,7 +13,7 @@
     "@eva-design/eva": "^2.2.0",
     "@react-native-async-storage/async-storage": "^1.24.0",
     "@react-native-community/datetimepicker": "^8.2.0",
-    "@react-native-seoul/kakao-login": "^5.4.1",
+    "@react-native-seoul/kakao-login": "github:react-native-seoul/kakao-login",
     "@react-navigation/bottom-tabs": "^6.6.1",
     "@react-navigation/native-stack": "^6.11.0",
     "@ui-kitten/components": "^5.3.1",
@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
+    "@babel/plugin-transform-private-methods": "^7.25.4",
     "@babel/preset-env": "^7.20.0",
     "@babel/runtime": "^7.20.0",
     "@react-native/babel-preset": "0.74.87",

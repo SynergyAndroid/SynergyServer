@@ -9,7 +9,7 @@ import Profile from '../screens/Profile';
 import Chat from '../screens/Chat';
 import ChatList from '../screens/ChatList';
 import PostDetail from '../screens/PostDetail';
-import OnboardingScreen from '../screens/onboarding/Onboarding';
+import OnboardingScreen from '../screens/onboarding/onboarding';
 import TermsAgreement from '../screens/SignUp/TermsAgreements';
 import UserInfo from '../screens/SignUp/UserInfo';
 import SignUpComplete from '../screens/SignUp/SignUpComplete';
