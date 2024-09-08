@@ -28,10 +28,11 @@ const PostDetail: React.FC<PostDetailProps> = ({ route }) => {
   const handleAddComment = async () => {
     if (newComment.trim()) {
       try {
-        const response = await axios.post(`http://192.168.0.27:9090/reply/create/${post.id}`, {
+        const response = await axios.post(`http://172.30.1.48:9090/reply/create/${post.id}`, {
           content: newComment,
         });
 
+        
         if (response.status === 200) {
           console.log('댓글이 성공적으로 추가되었습니다.');
           setNewComment(''); // 댓글이 추가된 후 입력 필드 초기화
