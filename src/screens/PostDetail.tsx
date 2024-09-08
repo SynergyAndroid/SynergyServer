@@ -28,7 +28,7 @@ const PostDetail: React.FC<PostDetailProps> = ({ route }) => {
   const handleAddComment = async () => {
     if (newComment.trim()) {
       try {
-        const response = await axios.post(`http://172.30.1.64:9090/reply/create/${post.id}`, {
+        const response = await axios.post(`http://192.168.0.27:9090/reply/create/${post.id}`, {
           content: newComment,
         });
 

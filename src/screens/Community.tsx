@@ -20,7 +20,7 @@ const Community: React.FC = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get('http://172.30.1.64:9090/community/list');
+        const response = await axios.get('http://192.168.0.27:9090/community/list');
         
         // 서버에서 반환된 전체 데이터를 콘솔에 출력
         console.log('Response data:', response.data);
