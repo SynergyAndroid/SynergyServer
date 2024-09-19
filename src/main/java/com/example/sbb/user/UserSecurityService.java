@@ -1,3 +1,5 @@
+// UserSecurityService.java
+
 package com.example.sbb.user;
 
 import java.util.ArrayList;
@@ -22,9 +24,9 @@ public class UserSecurityService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<SiteUser> _siteUser = this.userRepository.findByusername(username);
+        Optional<SiteUser> _siteUser = this.userRepository.findByUsername(username); // 메서드 이름 수정
         if (_siteUser.isEmpty()) {
-            throw new UsernameNotFoundException("사용자를 찾을수 없습니다.");
+            throw new UsernameNotFoundException("사용자를 찾을 수 없습니다.");
         }
         SiteUser siteUser = _siteUser.get();
         List<GrantedAuthority> authorities = new ArrayList<>();
