@@ -16,6 +16,8 @@ import jakarta.persistence.OneToMany;
 
 import lombok.Getter;
 import lombok.Setter;
+import jakarta.persistence.ManyToOne;
+import com.example.sbb.user.SiteUser;
 
 @Getter
 @Setter
@@ -36,4 +38,7 @@ public class Community {
     @OneToMany(mappedBy = "community", cascade = CascadeType.REMOVE)
     @JsonManagedReference // 순환 참조 방지를 위해 추가
     private List<Reply> replyList;
+
+    @ManyToOne
+    private SiteUser author;
 }

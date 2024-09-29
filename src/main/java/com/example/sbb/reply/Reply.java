@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import jakarta.persistence.ManyToOne;
+import com.example.sbb.user.SiteUser;
 
 @Getter
 @Setter
@@ -25,4 +27,7 @@ public class Reply {
     @ManyToOne
     @JsonBackReference // 순환 참조 방지를 위해 추가
     private Community community;
+
+    @ManyToOne
+    private SiteUser author;
 }

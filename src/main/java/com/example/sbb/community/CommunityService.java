@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import com.example.sbb.user.SiteUser;
 
 @RequiredArgsConstructor
 @Service
@@ -37,11 +38,12 @@ public class CommunityService {
 
     // 새로운 커뮤니티 글을 생성
     @Transactional
-    public void create(String title, String content) {
+    public void create(String title, String content, SiteUser user) {
         Community community = new Community();
         community.setTitle(title);
         community.setContent(content);
         community.setCreateDate(LocalDateTime.now()); // 현재 시간으로 설정
+        community.setAuthor(user);
         this.communityRepository.save(community);
     }
 

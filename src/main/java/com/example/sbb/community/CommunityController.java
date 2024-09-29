@@ -7,11 +7,16 @@ import org.springframework.data.domain.Page;
 import lombok.RequiredArgsConstructor;
 import jakarta.validation.Valid;
 import org.springframework.validation.BindingResult;
+import java.security.Principal;
+import com.example.sbb.user.SiteUser;
+import com.example.sbb.user.UserService;
 
 @RequiredArgsConstructor
 @RestController
 public class CommunityController {
     private final CommunityService communityService;
+    private final UserService userService;
+
 
     // 커뮤니티 글 목록을 JSON으로 반환
     @GetMapping("/community/list")
@@ -29,8 +34,10 @@ public class CommunityController {
 
     // 커뮤니티 글을 생성하고, 성공 메시지를 JSON으로 반환
     @PostMapping("/community/create")
-    public ResponseEntity<String> communityCreate(@RequestBody CommunityForm communityForm) {
-        this.communityService.create(communityForm.getTitle(), communityForm.getContent());
+    public ResponseEntity<String> communityCreate(@RequestBody CommunityForm communityForm, Principal principal) {
+        SiteUser siteUser = this.userService.getUser(principal.getName());
+
+        this.communityService.create(communityForm.getTitle(), communityForm.getContent(), siteUser);
         return ResponseEntity.ok("커뮤니티 글이 성공적으로 생성되었습니다.");
 }
 
