@@ -20,8 +20,12 @@ import org.springframework.web.cors.CorsConfigurationSource;
 
 import java.util.Arrays;
 
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+
+
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain (HttpSecurity http) throws Exception{

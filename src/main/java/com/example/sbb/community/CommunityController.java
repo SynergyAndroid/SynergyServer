@@ -11,6 +11,8 @@ import java.security.Principal;
 import com.example.sbb.user.SiteUser;
 import com.example.sbb.user.UserService;
 
+import org.springframework.security.access.prepost.PreAuthorize; //로그인 여부 확인 후 작성 가능하게 설정
+
 @RequiredArgsConstructor
 @RestController
 public class CommunityController {
@@ -32,6 +34,7 @@ public class CommunityController {
         return ResponseEntity.ok(community);
     }
 
+    @PreAuthorize("isAuthenticated()")
     // 커뮤니티 글을 생성하고, 성공 메시지를 JSON으로 반환
     @PostMapping("/community/create")
     public ResponseEntity<String> communityCreate(@RequestBody CommunityForm communityForm, Principal principal) {

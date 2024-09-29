@@ -23,6 +23,8 @@ import org.slf4j.LoggerFactory;
 import com.example.sbb.user.SiteUser;
 import com.example.sbb.user.UserService;
 
+import org.springframework.security.access.prepost.PreAuthorize; //로그인 여부 확인 후 작성 가능하게 하기
+
 @RequestMapping("/reply")
 @RequiredArgsConstructor
 @Controller
@@ -34,6 +36,7 @@ public class ReplyController {
     private final UserService userService;
 
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/create/{id}")
     public ResponseEntity<String> createReply(@PathVariable("id") Integer id,
                                               @Valid @RequestBody ReplyForm replyForm, BindingResult bindingResult, Principal principal) {
