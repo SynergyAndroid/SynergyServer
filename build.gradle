@@ -46,6 +46,9 @@ dependencies {
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5' // Jackson 사용 시
 	// runtimeOnly 'io.jsonwebtoken:jjwt-gson:0.11.5' // Gson 사용 시
 
+	implementation 'org.bouncycastle:bcprov-jdk15on:1.70'
+
+
 }
 
 tasks.named('test') {
