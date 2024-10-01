@@ -40,8 +40,12 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
-                        .requestMatchers("/user/login", "/user/signup").permitAll()
+                        .requestMatchers("/h2-console/**","/user/login", "/user/signup").permitAll()
                         .anyRequest().authenticated())
+                // 프레임 옵션을 동일 출처로 설정하여 H2 콘솔 접근 허용
+                .headers(headers -> headers
+                        .frameOptions(frameOptions -> frameOptions.sameOrigin())
+                )
                 .addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
