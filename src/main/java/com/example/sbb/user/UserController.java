@@ -126,4 +126,23 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.singletonMap("error", "위치 업데이트 중 오류가 발생했습니다."));
         }
     }
+
+    // 유저 프로필 API
+    @GetMapping("/profile")
+    public ResponseEntity<?> getProfile() {
+        // 현재 인증된 사용자 정보 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.isAuthenticated()) {
+            // 인증되지 않은 경우 처리
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Collections.singletonMap("error", "인증되지 않은 사용자입니다."));
+        }
+
+        String username = authentication.getName();
+
+        logger.info("프로필 요청: {}", username);
+
+        // username만 응답으로 전달
+        return ResponseEntity.ok(Collections.singletonMap("username", username));
+    }
 }
