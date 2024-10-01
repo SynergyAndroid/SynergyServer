@@ -1,6 +1,5 @@
 package com.example.sbb.user;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,13 +30,5 @@ public class UserService {
         } else {
             throw new DataNotFoundException("siteuser not found");
         }
-    }
-
-    @Transactional
-    public void updateLocation(String username, Float mapX, Float mapY) {
-        SiteUser user = getUser(username);
-        user.setMapX(mapX);
-        user.setMapY(mapY);
-        userRepository.save(user);
     }
 }
